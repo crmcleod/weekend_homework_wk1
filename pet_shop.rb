@@ -26,7 +26,7 @@ def pets_by_breed (pet_shop, breed_to_find)
     pets = pet_shop[:pets]
     pet_breed = []
     for pet in pets
-        pet_breed <<  pet[:breed] if pet[:breed] == breed_to_find
+        pet_breed <<  pet[:pets] if pet[:breed] == breed_to_find
     end
     return pet_breed
 end 
