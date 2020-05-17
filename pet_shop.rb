@@ -41,6 +41,7 @@ def find_pet_by_name (pet_shop, pet_by_name)
     return nil
 end
 
+# use find pet by name 
 def remove_pet_by_name (pet_shop, pet_by_name)
     pets = pet_shop[:pets]
     for pet in pets
@@ -75,12 +76,21 @@ def customer_can_afford_pet (customer, new_pet)
 end
 
 
-# this needs refactored
-def sell_pet_to_customer (pet_shop, pet, customer)
-    add_pet_to_customer(customer, pet)
-    pet_shop[:admin][:pets_sold] += customer[:pets].count
-    pet_price = pet[:price]
-    remove_customer_cash(customer, pet_price )
-    add_or_remove_cash(pet_shop, pet_price)
+
+def sell_pet_to_customer(pet_shop, pet, customer)
+    if pet
+        if customer_cash(customer) >= pet[:price]
+            # customer_can_afford_pet(customer, pet) && pet
+            add_pet_to_customer(customer, pet)
+            customer_pet_count = customer_pet_count(customer)
+            increase_pets_sold(pet_shop, customer_pet_count)
+            pet_price = pet[:price]
+            remove_customer_cash(customer, pet_price)
+            add_or_remove_cash(pet_shop, pet_price)
+        else
+        return nil
+        end
+    end
 end
+
         
